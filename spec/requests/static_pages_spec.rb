@@ -1,25 +1,41 @@
 require 'spec_helper'
 
 describe "Static Pages" do
+  subject { page }
+
   describe "Home pages" do
-    it "should have the content 'My Blog" do
-      # Run the generator again with the --webrat flag if you want to use webrat methods/matchers
-      visit '/static_pages/home'
-      page.should have_content('My Blog')
-    end
+    before { visit root_path }
+    
+    it { should have_selector('h1', text: 'My Blog') }
+    it { should have_selector('title', text: full_title('')) }
+    it { should_not have_selector('title', text: '| Home') }
   end
 
   describe "Help pages" do 
-    it "should have the content 'Help'" do
-      visit '/static_pages/help'
-      page.should have_content('Help')
-    end
+    before { visit help_path }
+
+    it { should have_selector('h1', text: 'Help') }
+    it { should have_selector('title', text: full_title('Help'))}
   end
 
   describe "Work pages" do
-    it "should have the content 'works'" do
-      visit '/static_pages/work'
-      page.should have_content('works')
-    end
+    before { visit work_path }
+
+    it { should have_selector('h1',text: 'Works') }
+    it { should have_selector('title', text: full_title('Works')) }
+  end
+
+  describe "About pages" do
+    before { visit about_path }
+
+    it { should have_selector('h1', text: 'About Us') }
+    it { should have_selector('title', text: full_title('About')) }
+  end
+
+  describe "Contact pages" do 
+     before { visit contact_path }
+
+     it { should have_selector('h1', text: 'Contact Us') }
+     it { should have_selector('title', text: full_title('Contact Us')) }
   end
 end
